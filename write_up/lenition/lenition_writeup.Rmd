@@ -1,0 +1,37 @@
+---
+title: 'CS Scripted: Lenition Analysis'
+author: "Page Piccinini"
+date: "November 26, 2015"
+output: html_document
+---
+```{r, echo=F, cache=F}
+load("lenition_environment.RData")
+```
+
+# Model parameters
+
+dependent variable = stop (0) or fricative (1) realization
+
+fixed effects = context x word number
+
+random effects = 1) speaker as intercept and slope by context + word number uncorrelated with intercept, 2) word as intercept and slope by word number uncorrelated with intercept, 3) sentence as intercept
+
+# Overall results
+
+```{r}
+lenition.glmer_sum
+```
+
+# Model comparisions
+
+```{r}
+lenition_nocont.anova
+lenition_nown.anova
+lenition_nocontxwn.anova
+```
+
+
+
+
+
+

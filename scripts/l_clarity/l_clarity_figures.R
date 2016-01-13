@@ -1,24 +1,20 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/scripts/l_clarity/")
-
-
-## LOAD REQUIRED PACKAGES
+## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
 
 
-## RUN CLEANING SCRIPT TO GET DATA
-source("l_clarity_cleaning.R")
+## RUN CLEANING SCRIPT TO GET DATA ####
+source("scripts/l_clarity/l_clarity_cleaning.R")
 
 
-## PREPARE DATA FOR FIGURES
+## PREPARE DATA FOR FIGURES ####
 lclar_figs = lclar_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
   mutate(l_position = factor(l_position, levels=c("onset", "coda")))
 
 
-## MAKE FIGURES
+## MAKE FIGURES ####
 # Monolingual versus code-switching
 lclar.fig = ggplot(lclar_figs, aes(x=language, y=f3_f2)) +
   geom_boxplot(aes(fill=context)) +
@@ -125,7 +121,8 @@ lclar_sp_contxwnxlpos.fig
 lclar_lgxcontxwnxlpos.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
   geom_boxplot(aes(fill=context)) +
   facet_grid(l_position ~ language) +
-  scale_fill_manual(values=c("white", "grey")) +
+  #scale_fill_manual(values=c("white", "grey")) +
+  scale_fill_manual(values=c("white", "black")) +
   ggtitle("F3 minus F2 in English and Spanish\nby Context, Target Word Number, and Position") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +
@@ -135,7 +132,29 @@ lclar_lgxcontxwnxlpos.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
         panel.border = element_blank(),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
-        legend.position="top", legend.key=element_blank())
+        legend.position="top", legend.key=element_blank(),
+        strip.background = element_rect(color="white", fill="white"))
 pdf("../../figures/lclar_lgxcontxwnxlpos.pdf")
 lclar_lgxcontxwnxlpos.fig
+dev.off()
+
+# Monolingual versus code-switching by language and word number
+lclar_lgxcontxwn.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
+  geom_boxplot(aes(fill=context)) +
+  facet_wrap(~ language) +
+  #scale_fill_manual(values=c("white", "grey")) +
+  scale_fill_manual(values=c("white", "black")) +
+  ggtitle("F3 minus F2 in English and Spanish\nby Context and Target Word Number") +
+  xlab("Word number") +
+  ylab("F3-F2 in Hz\nlight to dark") +
+  guides(fill=guide_legend(title="context")) +
+  theme_bw() +
+  theme(text=element_text(size=18), title=element_text(size=18),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.line = element_line(colour = "black"),
+        legend.position="top", legend.key=element_blank(),
+        strip.background = element_rect(color="white", fill="white"))
+pdf("../../figures/lclar_lgxcontxwn.pdf")
+lclar_lgxcontxwn.fig
 dev.off()

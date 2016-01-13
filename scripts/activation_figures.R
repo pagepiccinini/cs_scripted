@@ -1,11 +1,11 @@
-## LOAD PACKAGES
+## LOAD PACKAGES ####
 library(dplyr)
 library(tidyr)
 library(RColorBrewer)
 library(ggplot2)
 
 
-## MAKE FAKE DATA
+## MAKE FAKE DATA ####
 eng_ml = data.frame(time = seq(1, 100)) %>%
   mutate(English = rnorm(100, 90, 2)) %>%
   mutate(Spanish = rnorm(100, 10, 2)) %>%
@@ -27,20 +27,21 @@ csse = data.frame(time = seq(1, 100)) %>%
   gather(language, activation, c(English, Spanish))
 
 
-## MAKE COLORS FOR FIGURES
+## MAKE COLORS FOR FIGURES ####
 colors = brewer.pal(5, "PRGn")
 col_eng = colors[5]
 col_sp = colors[1]
 
 
-## MAKE PLOTS
+## MAKE PLOTS ####
 # English monolingual utterance
 eng_act.plot = ggplot(eng_ml, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
   xlim(0, 100) + 
   ylim(0, 100) +
-  scale_color_manual(values = c("black", "darkgrey")) +
+  #scale_color_manual(values = c("black", "darkgrey")) +
+  scale_color_manual(values = c(col_eng, col_sp)) +
   ggtitle("Language Activation During\nMonolingual English Utterance") +
   xlab("The woman is very tired") +
   ylab("Amount of activation") +
@@ -51,9 +52,10 @@ eng_act.plot = ggplot(eng_ml, aes(x = time, y = activation, color=language)) +
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank()) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
-  pdf("figures/eng_act.pdf")
+
+pdf("figures/eng_act.pdf")
 eng_act.plot
-  dev.off()
+dev.off()
 
 # Spanish monolingual utterance
 sp_act.plot = ggplot(sp_ml, aes(x = time, y = activation, color=language)) +
@@ -61,7 +63,8 @@ sp_act.plot = ggplot(sp_ml, aes(x = time, y = activation, color=language)) +
   #geom_area(fill=col_eng) +
   xlim(0, 100) + 
   ylim(0, 100) +
-  scale_color_manual(values = c("black", "darkgrey")) +
+  #scale_color_manual(values = c("black", "darkgrey")) +
+  scale_color_manual(values = c(col_eng, col_sp)) +
   ggtitle("Language Activation During\nMonolingual Spanish Utterance") +
   xlab(expression(paste(italic("La mujer está muy cansada")))) +
   ylab("Amount of activation") +
@@ -72,9 +75,10 @@ sp_act.plot = ggplot(sp_ml, aes(x = time, y = activation, color=language)) +
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank()) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
-  pdf("figures/sp_act.pdf")
+
+pdf("figures/sp_act.pdf")
 sp_act.plot
-  dev.off()
+dev.off()
 
 # Code-switching English to Spanish utterance
 cses_act.plot = ggplot(cses, aes(x = time, y = activation, color=language)) +
@@ -83,7 +87,8 @@ cses_act.plot = ggplot(cses, aes(x = time, y = activation, color=language)) +
   geom_vline(x = 50, lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
-  scale_color_manual(values = c("black", "darkgrey")) +
+  #scale_color_manual(values = c("black", "darkgrey")) +
+  scale_color_manual(values = c(col_eng, col_sp)) +
   ggtitle("Language Activation During\nCode-switching English to Spanish Utterance") +
   xlab(expression(paste("The woman is |", italic(" muy cansada")))) +
   ylab("Amount of activation") +
@@ -94,18 +99,20 @@ cses_act.plot = ggplot(cses, aes(x = time, y = activation, color=language)) +
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank()) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
 pdf("figures/cses_act.pdf")
 cses_act.plot
 dev.off()
 
-# Code-switching Spanish to Englis utterance
+# Code-switching Spanish to English utterance
 csse_act.plot = ggplot(csse, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
   geom_vline(x = 50, lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
-  scale_color_manual(values = c("black", "darkgrey")) +
+  #scale_color_manual(values = c("black", "darkgrey")) +
+  scale_color_manual(values = c(col_eng, col_sp)) +
   ggtitle("Language Activation During\nCode-switching Spanish to English Utterance") +
   xlab(expression(paste(italic("La mujer está "), "| very sad        "))) +
   ylab("Amount of activation") +
@@ -116,6 +123,7 @@ csse_act.plot = ggplot(csse, aes(x = time, y = activation, color=language)) +
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank()) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
 pdf("figures/csse_act.pdf")
 csse_act.plot
 dev.off()

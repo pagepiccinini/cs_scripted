@@ -1,17 +1,13 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/scripts/lenition/")
-
-
-## LOAD REQUIRED PACKAGES
+## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
 
 
-## RUN CLEANING SCRIPT TO GET DATA
-source("lenition_cleaning.R")
+## RUN CLEANING SCRIPT TO GET DATA ####
+source("scripts/lenition/lenition_cleaning.R")
 
 
-## PREPARE DATA FOR FIGURES
+## PREPARE DATA FOR FIGURES ####
 lenition_figs = lenition_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
@@ -20,7 +16,7 @@ lenition_figs = lenition_clean %>%
   ungroup()
 
 
-## MAKE FIGURES
+## MAKE FIGURES ####
 # Monolingual versus code-switching
 lenition.fig = ggplot(lenition_figs, aes(x=language, y=fric_realization)) +
   geom_boxplot(aes(fill=context)) +
@@ -89,10 +85,11 @@ lenition_sp.fig
 lenition_lgxcontxwn.fig = ggplot(lenition_figs, aes(x=word_number, y=fric_realization)) +
   geom_boxplot(aes(fill=context)) +
   facet_wrap(~language) +
-  scale_fill_manual(values=c("white", "grey")) +
+  #scale_fill_manual(values=c("white", "grey")) +
+  scale_fill_manual(values=c("white", "black")) +
   ggtitle("Lenition in English and Spanish\nby Context and Target Word Number") +
   xlab("Word number") +
-  ylab("Percentage of time realized as a fricative") +
+  ylab("Percentage of time\nrealized as a fricative") +
   guides(fill=guide_legend(title="context")) +
   ylim(0, 100) +
   theme_bw() +
@@ -100,7 +97,11 @@ lenition_lgxcontxwn.fig = ggplot(lenition_figs, aes(x=word_number, y=fric_realiz
         panel.border = element_blank(),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
-        legend.position="top", legend.key=element_blank())
+        legend.position="top", legend.key=element_blank(),
+        strip.background = element_rect(color="white", fill="white"))
+
 pdf("../../figures/lenition_lgxcontxwn.pdf")
 lenition_lgxcontxwn.fig
 dev.off()
+
+

@@ -1,23 +1,19 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/scripts/vot/")
-
-
-## LOAD REQUIRED PACKAGES
+## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
 
 
-## RUN CLEANING SCRIPT TO GET DATA
+## RUN CLEANING SCRIPT TO GET DATA ####
 source("vot_cleaning.R")
 
 
-## PREPARE DATA FOR FIGURES
+## PREPARE DATA FOR FIGURES ####
 vot_figs = vot_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching")))
   
 
-## MAKE FIGURES
+## MAKE FIGURES ####
 # Monolingual versus code-switching
 vot.fig = ggplot(vot_figs, aes(x=language, y=duration_ms)) +
   geom_boxplot(aes(fill=context)) +
@@ -105,7 +101,8 @@ vot_lgxcontxwn.fig
 vot_lgxcontxwn_log.fig = ggplot(vot_figs, aes(x=word_number, y=log10(duration_ms))) +
     geom_boxplot(aes(fill=context)) +
     facet_wrap(~language) +
-    scale_fill_manual(values=c("white", "grey")) +
+    #scale_fill_manual(values=c("white", "grey")) +
+    scale_fill_manual(values=c("white", "black")) +
     ggtitle("VOTs in English and Spanish\nby Context and Target Word Number") +
     xlab("Word number") +
     ylab("VOT in milliseconds\n(log-transformed)") +
@@ -115,7 +112,9 @@ vot_lgxcontxwn_log.fig = ggplot(vot_figs, aes(x=word_number, y=log10(duration_ms
           panel.border = element_blank(),
           panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           axis.line = element_line(colour = "black"),
-          legend.position="top", legend.key=element_blank())
+          legend.position="top", legend.key=element_blank(),
+          strip.background = element_rect(color="white", fill="white"))
+
 pdf("../../figures/vot_lgxcontxwn_log.pdf")
 vot_lgxcontxwn_log.fig
 dev.off()

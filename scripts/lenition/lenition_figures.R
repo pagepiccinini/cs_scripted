@@ -1,6 +1,7 @@
 ## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
+library(RColorBrewer)
 
 
 ## RUN CLEANING SCRIPT TO GET DATA ####
@@ -11,9 +12,21 @@ source("scripts/lenition/lenition_cleaning.R")
 lenition_figs = lenition_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
-  group_by(speaker, language, context, word_number) %>%
+  mutate(word_number = factor(word_number, levels=c("one", "two"), labels=c("one\n(pre-switch)", "two\n(post-switch)"))) %>%
+  mutate(context_full =  ifelse(language == "English" & context == "monolingual", "Eng. ML",
+                                ifelse(language == "English" & context == "code-switching", "Eng. CS",
+                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS")))) %>%
+  group_by(speaker, language, context, context_full, word_number) %>%
   summarise(fric_realization = mean(realization) * 100) %>%
   ungroup()
+
+
+## SET COLORS ####
+cols = brewer.pal(5, "PRGn")
+col_eng = cols[5]
+col_sp = cols[1]
+col_cses = cols[4]  
+col_csse = cols[2]
 
 
 ## MAKE FIGURES ####
@@ -83,10 +96,10 @@ lenition_sp.fig
 
 # Monolingual versus code-switching by word number by language
 lenition_lgxcontxwn.fig = ggplot(lenition_figs, aes(x=word_number, y=fric_realization)) +
-  geom_boxplot(aes(fill=context)) +
+  geom_boxplot(aes(fill=context_full)) +
   facet_wrap(~language) +
   #scale_fill_manual(values=c("white", "grey")) +
-  scale_fill_manual(values=c("white", "black")) +
+  scale_fill_manual(values=c(col_eng, col_cses, col_sp, col_csse)) +
   ggtitle("Lenition in English and Spanish\nby Context and Target Word Number") +
   xlab("Word number") +
   ylab("Percentage of time\nrealized as a fricative") +

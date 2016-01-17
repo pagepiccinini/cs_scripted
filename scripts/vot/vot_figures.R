@@ -1,6 +1,7 @@
 ## LOAD PACKAGES ####
 library(dplyr)
 library(ggplot2)
+library(RColorBrewer)
 
 
 ## RUN CLEANING SCRIPT TO GET DATA ####
@@ -10,8 +11,20 @@ source("vot_cleaning.R")
 ## PREPARE DATA FOR FIGURES ####
 vot_figs = vot_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
-  mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching")))
+  mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
+  mutate(word_number = factor(word_number, levels=c("one", "two"), labels=c("one\n(pre-switch)", "two\n(post-switch)"))) %>%
+  mutate(context_full =  ifelse(language == "English" & context == "monolingual", "Eng. ML",
+                                ifelse(language == "English" & context == "code-switching", "Eng. CS",
+                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS"))))
+
   
+## SET COLORS ####
+cols = brewer.pal(5, "PRGn")
+col_eng = cols[5]
+col_sp = cols[1]
+col_cses = cols[4]  
+col_csse = cols[2]
+
 
 ## MAKE FIGURES ####
 # Monolingual versus code-switching
@@ -99,10 +112,10 @@ vot_lgxcontxwn.fig
   
 # Monolingual versus code-switching by word number by language (log-transform)
 vot_lgxcontxwn_log.fig = ggplot(vot_figs, aes(x=word_number, y=log10(duration_ms))) +
-    geom_boxplot(aes(fill=context)) +
+    geom_boxplot(aes(fill=context_full)) +
     facet_wrap(~language) +
     #scale_fill_manual(values=c("white", "grey")) +
-    scale_fill_manual(values=c("white", "black")) +
+    scale_fill_manual(values=c(col_eng, col_cses, col_sp, col_csse)) +
     ggtitle("VOTs in English and Spanish\nby Context and Target Word Number") +
     xlab("Word number") +
     ylab("VOT in milliseconds\n(log-transformed)") +

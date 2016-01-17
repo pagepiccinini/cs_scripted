@@ -65,6 +65,7 @@ eng_act.plot = ggplot(eng_ml, aes(x = time, y = activation, color=language)) +
   #geom_area(fill=col_eng) +
   xlim(0, 100) + 
   ylim(0, 100) +
+  #scale_y_discrete(0, 100, breaks=NULL) +
   #scale_color_manual(values = c("black", "darkgrey")) +
   scale_color_manual(values = c(col_eng, col_sp)) +
   #ggtitle("Language Activation During\nMonolingual English Utterance") +
@@ -78,7 +79,8 @@ eng_act.plot = ggplot(eng_ml, aes(x = time, y = activation, color=language)) +
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/eng_act.pdf")
 eng_act.plot
@@ -139,7 +141,7 @@ dev.off()
 cses_act_sudden.plot = ggplot(cses_sudden, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -155,7 +157,8 @@ cses_act_sudden.plot = ggplot(cses_sudden, aes(x = time, y = activation, color=l
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/cses_act_sudden.pdf")
 cses_act_sudden.plot
@@ -165,7 +168,7 @@ dev.off()
 cses_act_equal.plot = ggplot(cses_equal, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -181,7 +184,8 @@ cses_act_equal.plot = ggplot(cses_equal, aes(x = time, y = activation, color=lan
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/cses_act_equal.pdf")
 cses_act_equal.plot
@@ -191,7 +195,7 @@ dev.off()
 cses_act_l1.plot = ggplot(cses_l1, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -207,7 +211,8 @@ cses_act_l1.plot = ggplot(cses_l1, aes(x = time, y = activation, color=language)
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/cses_act_l1.pdf")
 cses_act_l1.plot
@@ -217,7 +222,7 @@ dev.off()
 cses_act_dom.plot = ggplot(cses_dom, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -233,7 +238,8 @@ cses_act_dom.plot = ggplot(cses_dom, aes(x = time, y = activation, color=languag
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/cses_act_dom.pdf")
 cses_act_dom.plot
@@ -268,7 +274,7 @@ dev.off()
 csse_act_equal.plot = ggplot(csse_equal, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -284,7 +290,8 @@ csse_act_equal.plot = ggplot(csse_equal, aes(x = time, y = activation, color=lan
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/csse_act_equal.pdf")
 csse_act_equal.plot
@@ -294,7 +301,7 @@ dev.off()
 csse_act_l1.plot = ggplot(csse_l1, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -310,7 +317,8 @@ csse_act_l1.plot = ggplot(csse_l1, aes(x = time, y = activation, color=language)
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/csse_act_l1.pdf")
 csse_act_l1.plot
@@ -320,7 +328,7 @@ dev.off()
 csse_act_dom.plot = ggplot(csse_dom, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -336,7 +344,8 @@ csse_act_dom.plot = ggplot(csse_dom, aes(x = time, y = activation, color=languag
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="none", legend.key=element_blank()) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 pdf("figures/csse_act_dom.pdf")
 csse_act_dom.plot

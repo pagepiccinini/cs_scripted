@@ -191,6 +191,39 @@ pdf("figures/cses_act_equal.pdf")
 cses_act_equal.plot
 dev.off()
 
+# Code-switching English to Spanish utterance (equal H1)
+cses_act_equal.plot = ggplot(subset(cses_equal, language=="Spanish"), aes(x = time, y = activation, color=language)) +
+  geom_line(lwd=2) +
+  #geom_area(fill=col_eng) +
+  #geom_segment(aes(x = 50, xend = 50, y = 0, yend = 100), color="black", lwd=1.5) +
+  xlim(0, 100) + 
+  ylim(0, 100) +
+  #scale_color_manual(values = c("black", "darkgrey")) +
+  scale_color_manual(values = c(col_sp, col_eng)) +
+  #ggtitle("Language Activation During\nCode-switching English to Spanish Utterance") +
+  #xlab(expression(paste("The woman is |", italic(" muy cansada")))) +
+  #ylab("Amount of activation") +
+  xlab("") +
+  ylab("") +
+  theme_bw() +
+  theme(text=element_text(size=18), title=element_text(size=18),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.line = element_line(colour = "black"),
+        legend.position="none", legend.key=element_blank(),
+        panel.background = element_rect(fill = "transparent",colour = NA),
+        plot.background = element_rect(fill = "transparent",colour = NA)) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
+
+#pdf("figures/cses_act_equal.pdf")
+cses_act_equal.plot
+#dev.off()
+
+png("figures/test.png", bg = "transparent")
+cses_act_equal.plot
+dev.off()
+
 # Code-switching English to Spanish utterance (l1 H2-0)
 cses_act_l1.plot = ggplot(cses_l1, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +

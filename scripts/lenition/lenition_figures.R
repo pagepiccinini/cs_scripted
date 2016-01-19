@@ -18,7 +18,8 @@ lenition_figs = lenition_clean %>%
                                        ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS")))) %>%
   group_by(speaker, language, context, context_full, word_number) %>%
   summarise(fric_realization = mean(realization) * 100) %>%
-  ungroup()
+  ungroup() %>%
+  mutate(context_full = factor(context_full, levels=c("Eng. ML", "Eng. CS", "Sp. ML", "Sp. CS")))
 
 
 ## SET COLORS ####

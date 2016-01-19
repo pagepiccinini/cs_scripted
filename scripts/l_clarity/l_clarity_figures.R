@@ -16,7 +16,8 @@ lclar_figs = lclar_clean %>%
   mutate(word_number = factor(word_number, levels=c("one", "two"), labels=c("one\n(pre-switch)", "two\n(post-switch)"))) %>%
   mutate(context_full =  ifelse(language == "English" & context == "monolingual", "Eng. ML",
                                 ifelse(language == "English" & context == "code-switching", "Eng. CS",
-                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS"))))
+                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS")))) %>%
+  mutate(context_full = factor(context_full, levels=c("Eng. ML", "Eng. CS", "Sp. ML", "Sp. CS")))
 
 
 ## SET COLORS ####
@@ -132,10 +133,10 @@ lclar_sp_contxwnxlpos.fig
 
 # Monolingual versus code-switching by language, word number, and /l/ position
 lclar_lgxcontxwnxlpos.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
-  geom_boxplot(aes(fill=context)) +
+  geom_boxplot(aes(fill=context_full)) +
   facet_grid(l_position ~ language) +
   #scale_fill_manual(values=c("white", "grey")) +
-  scale_fill_manual(values=c("white", "black")) +
+  scale_fill_manual(values=c(col_eng, col_cses, col_sp, col_csse)) +
   ggtitle("F3 minus F2 in English and Spanish\nby Context, Target Word Number, and Position") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +

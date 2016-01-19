@@ -15,7 +15,9 @@ vot_figs = vot_clean %>%
   mutate(word_number = factor(word_number, levels=c("one", "two"), labels=c("one\n(pre-switch)", "two\n(post-switch)"))) %>%
   mutate(context_full =  ifelse(language == "English" & context == "monolingual", "Eng. ML",
                                 ifelse(language == "English" & context == "code-switching", "Eng. CS",
-                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS"))))
+                                       ifelse(language == "Spanish" & context == "monolingual", "Sp. ML", "Sp. CS")))) %>%
+  mutate(context_full = factor(context_full, levels=c("Eng. ML", "Eng. CS", "Sp. ML", "Sp. CS")))
+
 
   
 ## SET COLORS ####

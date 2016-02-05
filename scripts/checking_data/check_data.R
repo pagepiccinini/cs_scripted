@@ -1,20 +1,16 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/data")
-
-
-## LOAD LIBRARIES
+## LOAD PACKAGES ####
 library(dplyr)
 library(tidyr)
 
 
-## READ IN DATA
-word_info = read.table("word_information.txt", header=T, sep="\t", stringsAsFactors=F)
-sub_13_sent = read.table("raw_data/sub_13_sentences.txt", header=T, sep="\t", stringsAsFactors=F)
-sub_13_word = read.table("raw_data/sub_13_words.txt", header=T, sep="\t", stringsAsFactors=F)
-sub_13_l_data = read.table("raw_data/sub_13_l_data.txt", header=T, sep="\t", stringsAsFactors=F)
+## READ IN DATA ####
+word_info = read.table("data/word_information.txt", header=T, sep="\t", stringsAsFactors=F)
+sub_13_sent = read.table("data/raw_data/sub_13_sentences.txt", header=T, sep="\t", stringsAsFactors=F)
+sub_13_word = read.table("data/raw_data/sub_13_words.txt", header=T, sep="\t", stringsAsFactors=F)
+sub_13_l_data = read.table("data/raw_data/sub_13_l_data.txt", header=T, sep="\t", stringsAsFactors=F)
 
 
-## ORGANIZE DATA
+## ORGANIZE DATA ####
 # Add comments for sentences
 sub_13_sent_comments = sub_13_sent %>%
 	separate(sentence, into=c("prefix", "number", "sent_comment"), sep="_") %>%
@@ -33,7 +29,7 @@ sub_13 = filter(sub_13, word!="copa")
 sub_13_full = inner_join(sub_13, word_info)
 
 
-## CHECK IF SHOULD BE EXCLUDED
+## CHECK IF SHOULD BE EXCLUDED ####
 sub_13_sub = sub_13_full %>%
 	filter(is.na(sent_comment)) %>%
 	filter(is.na(word_comment) | word_comment=="stop" | word_comment=="fric")
@@ -42,7 +38,7 @@ xtabs(~language+context+word_number+feature, subset(sub_13_sub, feature!="l_clar
 xtabs(~language+context+word_number+l_position, subset(sub_13_sub, feature=="l_clarity")) # 4 per cell
 
 
-## MAKE ANALYSIS SPECIFIC DATA FRAMES
+## MAKE ANALYSIS SPECIFIC DATA FRAMES ####
 # Separate into different analyses
 sub_13_vot = filter(sub_13_full, feature=="VOT")
 sub_13_l_temp = filter(sub_13_full, feature=="l_clarity")
@@ -57,10 +53,10 @@ sub_13_lenition = sub_13_lenition_temp %>%
 	mutate(realization = ifelse(word_comment=="stop", 0, ifelse(word_comment=="fric", 1, NA)))
 	
 
-## WRITE DATA FILES 
-write.table(sub_13_vot, "vot/sub_13_vot.txt", sep="\t", eol="\n")
-write.table(sub_13_l, "l_clarity/sub_13_l_preout.txt", sep="\t", eol="\n")
-write.table(sub_13_lenition, "lenition/sub_13_lenition.txt", sep="\t", eol="\n")
+## WRITE DATA FILES ####
+write.table(sub_13_vot, "data/vot/sub_13_vot.txt", sep="\t", eol="\n")
+write.table(sub_13_l, "data/l_clarity/sub_13_l_preout.txt", sep="\t", eol="\n")
+write.table(sub_13_lenition, "data/lenition/sub_13_lenition.txt", sep="\t", eol="\n")
 
 
 

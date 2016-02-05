@@ -1,17 +1,14 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/data")
-
-
-## LOAD LIBRARIES
+## LOAD PACKAGES ####
 library(dplyr)
 library(tidyr)
 
-## READ IN DATA
-word_info = read.table("word_information.txt", header=T, sep="\t", stringsAsFactors=F)
-sub_45_sent = read.table("raw_data/sub_45_sentences_INITIAL.txt", header=T, sep="\t", stringsAsFactors=F)
+
+## READ IN DATA ####
+word_info = read.table("data/word_information.txt", header=T, sep="\t", stringsAsFactors=F)
+sub_45_sent = read.table("data/raw_data/sub_45_sentences_INITIAL.txt", header=T, sep="\t", stringsAsFactors=F)
 
 
-## ORGANIZE DATA
+## ORGANIZE DATA ####
 # Add comments for sentences
 sub_45_sent_comments = sub_45_sent %>%
   separate(sentence, into=c("prefix", "number", "sent_comment"), sep="_") %>%
@@ -23,7 +20,7 @@ sub_45 = inner_join(sub_45_sent_comments, word_info)
 sub_45 = filter(sub_45, word!="copa")
 
 
-## CHECK IF SHOULD BE EXCLUDED
+## CHECK IF SHOULD BE EXCLUDED ####
 # Remove disfluencies
 sub_45_sub = sub_45 %>%
   filter(is.na(sent_comment))

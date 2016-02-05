@@ -2,18 +2,18 @@
 setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/data/l_clarity/")
 
 
-## LOAD REQUIRED PACKAGES
+## LOAD REQUIRED PACKAGES ####
 library(purrr)
 library(dplyr)
 
 
-## READ IN DATA
+## READ IN DATA ####
 lclar = list.files(pattern = "l.txt$") %>%
   map(read.table, header=T, "\t") %>%
   reduce(rbind)
 
 
-## CLEAN DATA
+## CLEAN DATA ####
 lclar_clean = lclar %>%
   # Add column for condition
   mutate(condition = as.numeric(gsub("sub_","", speaker)) %% 8) %>%

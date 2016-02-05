@@ -1,16 +1,12 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/data/l_clarity")
-
-
-## LOAD LIBRARIES
+## LOAD PACKAGES ####
 library(dplyr)
 
 
-## READ IN DATA
-sub_56_l = read.table("sub_56_l_preout.txt", header=T, sep="\t")
+## READ IN DATA ####
+sub_56_l = read.table("data/l_clarity/sub_56_l_preout.txt", header=T, sep="\t")
 
 
-## CHECK FOR OUTLIERS
+## CHECK FOR OUTLIERS ####
 # Summarise data
 sub_56_l_sum = sub_56_l %>%
   filter(is.na(sent_comment)) %>%
@@ -105,7 +101,7 @@ sub_56_l_out_fixed
 
 
 ## WRITE TO TABLE
-write.table(sub_56_l_fixed, "sub_56_l.txt", sep="\t", eol="\n")
+write.table(sub_56_l_fixed, "data/l_clarity/sub_56_l.txt", sep="\t", eol="\n")
 
 
 

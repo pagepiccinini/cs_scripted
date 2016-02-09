@@ -1,19 +1,15 @@
-## SET WORKING DIRECTORY
-setwd("~/Desktop/Experiments/CS E-S Scripted/Results/cs_scripted_analysis/data/vot/")
-
-
-## LOAD REQUIRED PACKAGES
+## LOAD PACKAGES ####
 library(purrr)
 library(dplyr)
 
 
-## READ IN DATA
-vot = list.files() %>%
+## READ IN DATA ####
+vot = list.files(path = "data/vot", full.names = TRUE) %>%
   map(read.table, header=T, "\t") %>%
   reduce(rbind)
 
 
-## CLEAN DATA
+## CLEAN DATA ####
 vot_clean = vot %>%
   # Add column for condition
   mutate(condition = as.numeric(gsub("sub_","", speaker)) %% 8) %>%
@@ -22,4 +18,9 @@ vot_clean = vot %>%
   filter(is.na(sent_comment)) %>%
   filter(is.na(word_comment))
   
+
+## SUMMARIZE DATA ####
+vot_sum = vot_clean %>%
+  group_by(language, context, word_number) %>%
+  summarise(duration = mean(duration_ms))
   

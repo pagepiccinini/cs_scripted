@@ -1,14 +1,13 @@
+## READ IN DATA ####
+source("scripts/lenition/lenition_cleaning.R")
+
+
 ## LOAD PACKAGES ####
-library(dplyr)
 library(ggplot2)
 library(RColorBrewer)
 
 
-## RUN CLEANING SCRIPT TO GET DATA ####
-source("scripts/lenition/lenition_cleaning.R")
-
-
-## PREPARE DATA FOR FIGURES ####
+## ORGANIZE DATA ####
 lenition_figs = lenition_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
@@ -45,6 +44,7 @@ lenition.fig = ggplot(lenition_figs, aes(x=language, y=fric_realization)) +
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 lenition.fig
 
 # Within code-switching, language x word number
@@ -61,6 +61,7 @@ lenition_cs.fig = ggplot(subset(lenition_figs, context=="code-switching"), aes(x
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 lenition_cs.fig
 
 # Within English, context x word number
@@ -77,6 +78,7 @@ lenition_eng.fig = ggplot(subset(lenition_figs, language=="English"), aes(x=cont
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 lenition_eng.fig
 
 # Within Spanish, context x word number
@@ -93,6 +95,7 @@ lenition_sp.fig = ggplot(subset(lenition_figs, language=="Spanish"), aes(x=conte
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 lenition_sp.fig
 
 # Monolingual versus code-switching by word number by language
@@ -114,7 +117,7 @@ lenition_lgxcontxwn.fig = ggplot(lenition_figs, aes(x=word_number, y=fric_realiz
         legend.position="top", legend.key=element_blank(),
         strip.background = element_rect(color="white", fill="white"))
 
-pdf("../../figures/lenition_lgxcontxwn.pdf")
+pdf("figures/lenition_lgxcontxwn.pdf")
 lenition_lgxcontxwn.fig
 dev.off()
 

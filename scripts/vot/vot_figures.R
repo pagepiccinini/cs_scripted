@@ -1,14 +1,13 @@
+## READ IN DATA ####
+source("scripts/vot/vot_cleaning.R")
+
+
 ## LOAD PACKAGES ####
-library(dplyr)
 library(ggplot2)
 library(RColorBrewer)
 
 
-## RUN CLEANING SCRIPT TO GET DATA ####
-source("vot_cleaning.R")
-
-
-## PREPARE DATA FOR FIGURES ####
+## ORGANIZE DATA ####
 vot_figs = vot_clean %>%
   mutate(language = factor(language, levels=c("english", "spanish"), labels=c("English", "Spanish"))) %>%
   mutate(context = factor(context, levels=c("ml", "cs"), labels=c("monolingual", "code-switching"))) %>%
@@ -20,7 +19,6 @@ vot_figs = vot_clean %>%
   mutate(context_full = factor(context_full, levels=c("Eng. ML", "Eng. CS", "Sp. ML", "Sp. CS")))
 
 
-  
 ## SET COLORS ####
 cols = brewer.pal(5, "PRGn")
 col_eng = cols[5]
@@ -44,6 +42,7 @@ vot.fig = ggplot(vot_figs, aes(x=language, y=duration_ms)) +
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 vot.fig
 
 # Within code-switching, language x word number
@@ -60,6 +59,7 @@ vot_cs.fig = ggplot(subset(vot_figs, context=="code-switching"), aes(x=language,
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 vot_cs.fig
 
 # Within English, context x word number
@@ -76,6 +76,7 @@ vot_eng.fig = ggplot(subset(vot_figs, language=="English"), aes(x=word_number, y
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 vot_eng.fig
 
 # Within Spanish, context x word number
@@ -92,6 +93,7 @@ vot_sp.fig = ggplot(subset(vot_figs, language=="Spanish"), aes(x=word_number, y=
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
+
 vot_sp.fig
 
 # Monolingual versus code-switching by word number by language
@@ -109,9 +111,10 @@ vot_lgxcontxwn.fig = ggplot(vot_figs, aes(x=word_number, y=duration_ms)) +
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
-  pdf("../../figures/vot_lgxcontxwn.pdf")
+
+pdf("figures/vot_lgxcontxwn.pdf")
 vot_lgxcontxwn.fig
-  dev.off()
+dev.off()
   
 # Monolingual versus code-switching by word number by language (log-transform)
 vot_lgxcontxwn_log.fig = ggplot(vot_figs, aes(x=word_number, y=log10(duration_ms))) +
@@ -131,7 +134,7 @@ vot_lgxcontxwn_log.fig = ggplot(vot_figs, aes(x=word_number, y=log10(duration_ms
           legend.position="top", legend.key=element_blank(),
           strip.background = element_rect(color="white", fill="white"))
 
-pdf("../../figures/vot_lgxcontxwn_log.pdf")
+pdf("figures/vot_lgxcontxwn_log.pdf")
 vot_lgxcontxwn_log.fig
 dev.off()
 
@@ -152,7 +155,7 @@ vot_lgxcontxwn_log_density.fig = ggplot(vot_figs, aes(x = log10(duration_ms))) +
         axis.line = element_line(colour = "black"),
         legend.position="top", legend.key=element_blank())
 
-pdf("../../figures/vot_lgxcontxwn_log_density.pdf")
+pdf("figures/vot_lgxcontxwn_log_density.pdf")
 vot_lgxcontxwn_log_density.fig
 dev.off()
 

@@ -33,7 +33,7 @@ col_csse = cols[2]
 lclar.fig = ggplot(lclar_figs, aes(x=language, y=f3_f2)) +
   geom_boxplot(aes(fill=context)) +
   #scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 Minus F2 in English and Spanish\nSeparated by Context") +
+  ggtitle("F3-F2 in English and Spanish\nSeparated by Context") +
   xlab("Language") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="context")) +
@@ -50,7 +50,7 @@ lclar.fig
 lclar_cs.fig = ggplot(subset(lclar_figs, context=="code-switching"), aes(x=language, y=f3_f2)) +
   geom_boxplot(aes(fill=word_number)) +
   #scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 Minus F2 in Code-switching English and Spanish\nSeparated by Target Word Number") +
+  ggtitle("F3-F2 in Code-switching English and Spanish\nSeparated by Target Word Number") +
   xlab("Language") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="word number")) +
@@ -67,7 +67,7 @@ lclar_cs.fig
 lclar_eng.fig = ggplot(subset(lclar_figs, language=="English"), aes(x=context, y=f3_f2)) +
   geom_boxplot(aes(fill=word_number)) +
   #scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 Minus F2 in English\nSeparated by Context and Target Word Number") +
+  ggtitle("F3-F2 in English\nSeparated by Context and Target Word Number") +
   xlab("Language") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="word number")) +
@@ -84,7 +84,7 @@ lclar_eng.fig
 lclar_sp.fig = ggplot(subset(lclar_figs, language=="Spanish"), aes(x=context, y=f3_f2)) +
   geom_boxplot(aes(fill=word_number)) +
   #scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 Minus F2 in Spanish Separated\nby Context and Target Word Number") +
+  ggtitle("F3-F2 in Spanish Separated\nby Context and Target Word Number") +
   xlab("Language") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="word number")) +
@@ -102,7 +102,7 @@ lclar_eng_contxwnxlpos.fig = ggplot(subset(lclar_figs, language=="English"), aes
   geom_boxplot(aes(fill=context)) +
   facet_wrap(~l_position) +
   scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 minus F2 in English Separated by\nContext, Word Number, and /l/-position") +
+  ggtitle("F3-F2 in English Separated by\nContext, Word Number, and /l/-position") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="context")) +
@@ -122,7 +122,7 @@ lclar_sp_contxwnxlpos.fig = ggplot(subset(lclar_figs, language=="Spanish"), aes(
   geom_boxplot(aes(fill=context)) +
   facet_wrap(~l_position) +
   scale_fill_manual(values=c("white", "grey")) +
-  ggtitle("F3 minus F2 in Spanish Separated by\nContext, Word Number, and /l/-position") +
+  ggtitle("F3-F2 in Spanish Separated by\nContext, Word Number, and /l/-position") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="context")) +
@@ -143,7 +143,7 @@ lclar_lgxcontxwnxlpos.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
   facet_grid(l_position ~ language) +
   #scale_fill_manual(values=c("white", "grey")) +
   scale_fill_manual(values=c(col_eng, col_cses, col_sp, col_csse)) +
-  ggtitle("F3 minus F2 in English and Spanish\nby Context, Target Word Number, and Position") +
+  ggtitle("F3-F2 in English and Spanish\nby Context, Target Word Number, and Position") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="context")) +
@@ -166,7 +166,7 @@ lclar_lgxcontxwn.fig = ggplot(lclar_figs, aes(x=word_number, y=f3_f2)) +
   aes(fill = language) +
   #scale_fill_manual(values=c("white", "grey")) +
   scale_fill_manual(values=c(col_eng, col_cses, col_sp, col_csse)) +
-  ggtitle("F3 minus F2 in English and Spanish\nby Context and Target Word Number") +
+  ggtitle("F3-F2 in English and Spanish\nby Context and Target Word Number") +
   xlab("Word number") +
   ylab("F3-F2 in Hz\nlight to dark") +
   guides(fill=guide_legend(title="context")) +
@@ -188,7 +188,7 @@ lclar_lgxcontxwn_density.fig = ggplot(lclar_figs, aes(x = f3_f2)) +
   facet_wrap(~ word_number) +
   scale_color_manual(values=c("black", "darkgrey", "black", "darkgrey")) +
   scale_linetype_manual(values=c(1, 1, 2, 2)) +
-  ggtitle("Density Plot of F3 minus F2\nin English and Spanish\nby Context and Target Word Number") +
+  ggtitle("Density Plot of F3-F2\nin English and Spanish\nby Context and Target Word Number") +
   xlab("F3-F2 in Hz\nlight to dark") +
   ylab("Density") +
   guides(color=guide_legend(title=""), linetype = guide_legend(title = "")) +

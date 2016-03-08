@@ -84,7 +84,7 @@ dev.off()
 cses_act.plot = ggplot(cses, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_vline(x = 50, lwd=1.5) +
+  geom_vline(xintercept = 50, lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
@@ -108,13 +108,13 @@ dev.off()
 csse_act.plot = ggplot(csse, aes(x = time, y = activation, color=language)) +
   geom_line(lwd=2) +
   #geom_area(fill=col_eng) +
-  geom_vline(x = 50, lwd=1.5) +
+  geom_vline(xintercept = 50, lwd=1.5) +
   xlim(0, 100) + 
   ylim(0, 100) +
   #scale_color_manual(values = c("black", "darkgrey")) +
   scale_color_manual(values = c(col_eng, col_sp)) +
   ggtitle("Language Activation During\nCode-switching Spanish to English Utterance") +
-  xlab(expression(paste(italic("La mujer está "), "| very sad        "))) +
+  xlab(expression(paste(italic("La mujer está "), "| very tired      "))) +
   ylab("Amount of activation") +
   theme_bw() +
   theme(text=element_text(size=18), title=element_text(size=18),
